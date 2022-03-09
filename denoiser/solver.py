@@ -211,7 +211,7 @@ class Solver(object):
         logprog = LogProgress(logger, data_loader, updates=self.num_prints, name=name)
 
         sc_loss, mag_loss = 0, 0 # To make it work even when MultiResolution STFT loss is turned off
-        al, bt, ga = 0.45 , 0.45 , 0.45
+        #al, bt, ga = 0.45 , 0.45 , 0.45
         writer = SummaryWriter('runs/mini-Batch_level_loss')
 
         for i, data in enumerate(logprog):
@@ -243,7 +243,7 @@ class Solver(object):
                     P_loss = get_distance(clean.squeeze(1),estimate.squeeze(1)).mean()
                     wav_loss = F.l1_loss(clean, estimate)
                     sc_loss, mag_loss = self.mrstftloss(estimate.squeeze(1), clean.squeeze(1))
-                    loss = al * wav_loss  + bt * (sc_loss + mag_loss) + ga * (P_loss)
+                    loss = self.args.al * wav_loss  + self.args.bt * (sc_loss + mag_loss) + self.args.ga * (P_loss)
 
                 # optimize model in training mode
               if not cross_valid:

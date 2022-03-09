@@ -2,13 +2,13 @@
 stage=1
 
 
-source /data/home/anirudh/anaconda3/etc/profile.d/conda.sh
+source /data/asreeram/miniconda3/etc/profile.d/conda.sh
 
 conda activate denoise
 
 if [ $stage -eq 1 ]; then
 
-CUDA_VISIBLE_DEVICES=2 python train.py continue_pretrained=dns48
+ CUDA_LAUNCH_BLOCKING=1 CUDA_VISIBLE_DEVICES=0 python train.py continue_pretrained=dns48
 
 fi
 
